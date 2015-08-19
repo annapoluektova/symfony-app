@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+{% block title %}Subcategory List{% endblock %}
+
+{% block body -%}
+    <h1>SubCategories list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Subcatname</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.categories.catName }}</td>
+                <td>{{ entity.subCatName }}</td>
+                <td>
+                        <a class="btn btn-default btn-xs" href="{{ path('subcategories_show', { 'id': entity.id }) }}">show</a>
+                        <a class="btn btn-default btn-xs" href="{{ path('subcategories_edit', { 'id': entity.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            <a class="btn btn-default" href="{{ path('subcategories_new') }}">
+                New Subcategory
+            </a>
+    {% endblock %}

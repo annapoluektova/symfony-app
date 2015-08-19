@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+{% block title %}Product List{% endblock %}
+
+{% block body -%}
+    <h1>Products list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Subcategory</th>
+                <th>Product</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.subcategories.subCatName }}</td>
+                <td>{{ entity.prodName }} ({{ entity.prodDescription }}) - {% if entity.deliveryDate %}{{ entity.deliveryDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                        <a class="btn btn-default btn-xs" href="{{ path('products_show', { 'id': entity.id }) }}">show</a>
+                        <a class="btn btn-default btn-xs" href="{{ path('products_edit', { 'id': entity.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            <a class="btn btn-default" href="{{ path('products_new') }}">
+                New Product
+            </a>
+    {% endblock %}

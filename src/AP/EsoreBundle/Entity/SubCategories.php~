@@ -1,0 +1,81 @@
+<?php
+
+namespace AP\EsoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * SubCategories
+ *
+ * @ORM\Table(name="subcategories")
+ * @ORM\Entity(repositoryClass="AP\EsoreBundle\Entity\SubCategoriesRepository")
+ */
+class SubCategories
+{
+    /**
+     * @var Categories
+     * 
+     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="subcategories")
+     * @ORM\JoinColumn(name="catId", referencedColumnName="id")
+     */
+    private $categories;
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Products", mappedBy="subcategories")
+     */
+    private $products;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subCatName", type="string", length=255)
+     */
+    private $subCatName;
+
+    public function __construct() {
+        $this -> products = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set subCatName
+     *
+     * @param string $subCatName
+     * @return SubCategories
+     */
+    public function setSubCatName($subCatName)
+    {
+        $this->subCatName = $subCatName;
+
+        return $this;
+    }
+
+    /**
+     * Get subCatName
+     *
+     * @return string 
+     */
+    public function getSubCatName()
+    {
+        return $this->subCatName;
+    }
+}
